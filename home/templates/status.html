@@ -1,0 +1,49 @@
+{% extends 'base.html'%}
+
+{% block body %}
+
+
+
+<div class="px-4 py-5 my-5 text-center">
+  <h1 class="display-5 fw-bold text-body-emphasis">Загрузка файла</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">Выберите файл с историей о сделках для ее дальнейшей обработки.</p>
+    <form action="{% url 'upload_deals' %}" enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <label for="file-upload" class="btn btn-primary btn-lg px-4 gap-3">
+          <span id="file-name">Выбрать файл</span>
+          <input id="file-upload" type="file" style="display:none;" name="deal_file" onchange="updateFileName(event)">
+        </label>
+        <button type="submit" class="btn btn-outline-secondary btn-lg px-4">Загрузить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function updateFileName(event) {
+    var input = event.target;
+    var fileName = input.files[0].name;
+    document.getElementById("file-name").textContent = fileName;
+  }
+</script>
+
+
+{% if form_errors is not None %}
+<p>Found errors on line {{ row_count }}:</p>
+<ul>
+  {% for field, errors in form_errors.items %}
+  {% for error in errors %}
+  <li> {{field}}: {{ error }} </li>
+  {% endfor %}
+  {% endfor %}
+</ul>
+{% elif row_count %}
+<p>Successfully uploaded {{ row_count }} row(s)! 🥳</p>
+
+{% endif %}
+
+
+
+{% endblock %}

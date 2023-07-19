@@ -1,0 +1,54 @@
+{% extends 'base.html'%}
+
+{% block body %}
+
+{% if top_customers %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Имя клиента</th>
+            <th scope="col">Сумма заказов</th>
+            <th scope="col">Популярные камни</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in top_customers %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ customer.username }}</td>
+            <td>{{ customer.spent_money }}</td>
+            <td>
+                {% if customer.gems %}
+                {% for gem in customer.gems %}
+                {{ gem }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+                {% else %}
+                Пусто 😢
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% else %}
+
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis">Пусто</h1>
+    <p class="lead mb-4">Для начала работы, пожалуйста, загрузите файл.</p>
+    <form action="{% url 'upload_deals' %}" enctype="multipart/form-data" method="post">
+        <div class="mt-4">
+            <a href="{% url 'upload_deals' %}" class="btn btn-lg btn-outline-primary">Загрузить истории сделок</a>
+        </div>
+</div>
+
+
+{% endif %}
+
+
+
+
+{% endblock %}

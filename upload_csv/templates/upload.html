@@ -1,0 +1,73 @@
+{% extends 'base.html'%}
+
+{% block body %}
+
+
+{% if error is not None %}
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis">Ошибка!</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Во время обработки произошла ошибка:</p>
+        <p class="lead mb-4">{{ error }} в строке {{ row_count }}</p>
+
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="{% url 'upload_deals' %}" class="btn btn-primary btn-lg px-4 gap-3">Загрузить другой файл </a>
+            <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-lg px-4">Вернуться на главную</a>
+        </div>
+        </form>
+    </div>
+</div>
+
+
+{% elif row_count %}
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis">Успех!</h1>
+    <div class="col-lg-6 mx-auto">
+        {% if row_count == 1 %}
+        <p class="lead mb-4">Была успешно обработана 1 строка.</p>
+        {% else %}
+        <p class="lead mb-4">Было успешно обработано {{ row_count }} строк.</p>
+        {% endif %}
+
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-4 gap-3">Вернуться на главную</a>
+            <a href="{% url 'upload_deals' %}" class="btn btn-outline-secondary btn-lg px-4">Загрузить другой файл</a>
+        </div>
+    </div>
+</div>
+
+{% elif error is None %}
+
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis">Загрузка файла</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Выберите файл с историей о сделках для ее дальнейшей обработки.</p>
+        <form action="{% url 'upload_deals' %}" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <label for="file-upload" class="btn btn-primary btn-lg px-4 gap-3">
+                    <span id="file-name">Выбрать файл</span>
+                    <input id="file-upload" type="file" style="display:none;" name="deal_file"
+                        onchange="updateFileName(event)">
+                </label>
+                <button type="submit" class="btn btn-outline-secondary btn-lg px-4">Загрузить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function updateFileName(event) {
+        var input = event.target;
+        var fileName = input.files[0].name;
+        document.getElementById("file-name").textContent = fileName;
+    }
+</script>
+
+
+
+
+
+{% endif %}
+
+{% endblock %}

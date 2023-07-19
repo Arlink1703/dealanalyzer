@@ -1,0 +1,69 @@
+{% extends 'base.html'%}
+
+{% block body%}
+
+<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+  <h1 class="display-4 fw-normal text-body-emphasis">Добро пожаловать!</h1>
+  <p class="fs-5 text-body-secondary">Добро пожаловать на мой сайт! Я надеюсь, что сайт поможет вам эффективно
+    анализировать и управлять историей сделок вашей компании. Удачной работы! </p>
+  <p class="fs-5 text-body-secondary">Здесь вы можете управлять и анализировать историю сделок вашей компании. Сайт
+    предоставляет следующие возможности:
+  </p>
+</div>
+</header>
+
+<main>
+  <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+          <h4 class="my-0 fw-normal">Загрузка файлов с историей сделок
+          </h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Вы можете загрузить файл с информацией о прошлых сделках вашей компании. Просто перейдите в раздел
+              "Загрузить истории сделок" в шапке сайта, нажмите кнопку "Выбрать файл" и выберите нужный файл. Сервер
+              обработает файл и извлечет информацию о сделках.</li>
+          </ul>
+          <a href="{% url 'upload_deals' %}" class="w-100 btn btn-lg btn-outline-primary">Загрузить истории сделок</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+          <h4 class="my-0 fw-normal">Лучшие клиенты</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li> Чтобы узнать, кто из ваших клиентов является обладателем самой дорогой сделки, перейдите в раздел
+              "Лучшие клиенты" в шапке сайта. Там вы сможете выбрать файл с историей сделок по дате загрузки и получить
+              список лучших клиентов. Это поможет вам определить, с кем стоит продолжать сотрудничество и развивать
+              более плодотворные отношения.</li>
+          </ul>
+          <a href="{% url 'get_top_customers' %}" class="w-100 btn btn-lg btn-primary">Лучшие клиенты</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm border-primary">
+        <div class="card-header py-3 text-bg-primary border-primary">
+          <h4 class="my-0 fw-normal">Удаление файлов</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>
+              Если вы хотите очистить историю сделок, вы можете. Просто перейдите нажмите на кнопку "Очистить историю"
+              ниже. Сервер удалит их с базы данных.</li>
+          </ul>
+          <a href="{% url 'delete' %}" class="w-100 btn btn-lg btn-primary">Очистить историю</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+{% endblock %}
